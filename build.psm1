@@ -12,7 +12,8 @@ function Get-EnvironmentInformation {
         $environment += @{'IsLinux' = $Runtime::IsOSPlatform($OSPlatform::Linux)}
         $environment += @{'IsOSX' = $Runtime::IsOSPlatform($OSPlatform::OSX)}
         $environment += @{'IsWindows' = $Runtime::IsOSPlatform($OSPlatform::Windows)}
-    } catch {
+    }
+    catch {
         $environment += @{'IsCoreCLR' = $false}
         $environment += @{'IsLinux' = $false}
         $environment += @{'IsOSX' = $false}
@@ -23,7 +24,8 @@ function Get-EnvironmentInformation {
         $environment += @{'IsAdmin' = (New-Object Security.Principal.WindowsPrincipal ([Security.Principal.WindowsIdentity]::GetCurrent())).IsInRole([Security.Principal.WindowsBuiltinRole]::Administrator)}
         # Can't use $env:HOME - not available on older systems (e.g. in AppVeyor)
         $environment += @{'nugetPackagesRoot' = "${env:HOMEDRIVE}${env:HOMEPATH}\.nuget\packages"}
-    } else {
+    }
+    else {
         $environment += @{'nugetPackagesRoot' = "${env:HOME}/.nuget/packages"}
     }
 
@@ -57,7 +59,8 @@ function Find-Dotnet() {
     $Environment = Get-EnvironmentInformation
     $DotnetPath = if ($Environment.IsWindows) {
         "$env:LocalAppData\Microsoft\dotnet"
-    } else {
+    }
+    else {
         "$env:HOME/.dotnet"
     }
     if (-not (Test-DotnetExists)) {
@@ -73,7 +76,8 @@ function Find-Dotnet() {
 Function Test-DotnetExists {
     if (Get-Command dotnet -ErrorAction SilentlyContinue) {
         $True
-    } else {
+    }
+    else {
         $False
     }
 }

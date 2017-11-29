@@ -72,9 +72,11 @@ Task Build -Depends Init {
         dotnet restore
         dotnet publish --configuration $Dotnetconfiguration --runtime $DotnetRuntime --output $ModuleFolder
         Update-Metadata -Path $BinManifest -PropertyName 'ModuleVersion' -Value $BuildVersion
-    } catch {
+    }
+    catch {
         Write-Error "Build Failed: $_"
-    } finally {
+    }
+    finally {
         Pop-Location
         "`n"
     }
@@ -95,7 +97,8 @@ Task Deploy -Depends Init {
         $HasApiKey
     ) {
         Invoke-PSDeploy $ProjectRoot -Force -Verbose
-    } else {
+    }
+    else {
         "Skipping deployment: To deploy, ensure that...`n" +
         "`t* You are in a known build system (Current: $ENV:BHBuildSystem)`n" +
         "`t* You are committing to the master branch (Current: $ENV:BHBranchName) `n" +
