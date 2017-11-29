@@ -89,8 +89,8 @@ Task Deploy -Depends Init {
     $lines
     $HasApiKey = -not [String]::IsNullOrEmpty($ENV:NugetApiKey)
     if (
-        $ENV:BHBuildSystem   -ne 'Unknown'    -and
-        $ENV:BHBranchName    -eq "master"     -and
+        $ENV:BHBuildSystem   -ne    'Unknown' -and
+        $ENV:BHBranchName    -eq    "master"  -and
         $ENV:BHCommitMessage -match '!deploy' -and
         $HasApiKey
     ) {
