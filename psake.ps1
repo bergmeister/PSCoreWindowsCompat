@@ -32,8 +32,8 @@ Properties {
         $GalleryVersion = Get-NextPSGalleryVersion -Name $ModuleName
         $BuildVersion = [version]::New($CurrentVersion.Major, ($CurrentVersion.Minor + 1), 0, 0)
         if (
-            $CurrentVersion.Minor -eq 0 -and
-            $CurrentVersion.Build -eq 0 -and
+            $CurrentVersion.Minor    -eq 0 -and
+            $CurrentVersion.Build    -eq 0 -and
             $CurrentVersion.Revision -eq 0
         ) {
             #This is a major version release, don't molest the the version
@@ -89,8 +89,8 @@ Task Deploy -Depends Init {
     $lines
     $HasApiKey = -not [String]::IsNullOrEmpty($ENV:NugetApiKey)
     if (
-        $ENV:BHBuildSystem -ne 'Unknown' -and
-        $ENV:BHBranchName -eq "master" -and
+        $ENV:BHBuildSystem   -ne 'Unknown'    -and
+        $ENV:BHBranchName    -eq "master"     -and
         $ENV:BHCommitMessage -match '!deploy' -and
         $HasApiKey
     ) {
